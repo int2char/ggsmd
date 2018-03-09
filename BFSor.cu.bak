@@ -159,8 +159,7 @@ vector<vector<Rout>> BFSor::routalg(int s,int t,int bw)
 {
 	//cout<<"blasting "<<endl;
 	int kk=1;
-	time_t start,end;
-	start=clock();
+	float start=float(1000*clock())/ CLOCKS_PER_SEC;;
 	int size=edges.size()*LY*YE;
 	cudaStream_t stream0;
 	cudaStreamCreate(&stream0);
@@ -217,8 +216,8 @@ vector<vector<Rout>> BFSor::routalg(int s,int t,int bw)
 				count++;
 			}
 		}
-	end=clock();
-	//cout<<"GPU time is : "<<end-start<<endl;
+	float end=float(1000*clock())/ CLOCKS_PER_SEC;;
+	cout<<"GPU time is : "<<end-start<<endl;
 	//cout<<"over!"<<endl;
 	//cudaFree(dev_te);
 	//cudaFree(dev_st);

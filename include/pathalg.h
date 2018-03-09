@@ -259,7 +259,7 @@ class PBellmanor:public algbase{
 							int off=ncount*nodenum;
 							int neioff=pnodesize;
 							d[s]=0;
-							/*for(int kk=1;kk<=WD;kk++)
+							for(int kk=1;kk<=WD;kk++)
 							{
 								for(int i=0;i<pnodesize;i++)
 								{
@@ -276,12 +276,14 @@ class PBellmanor:public algbase{
 									}
 								}
 								neioff+=pnodesize;
-							}*/
+							}
 							//cout<<"cn you be"<<endl;
-							set<int>ss;
+							/*set<int>ss;
 							for(int i=0;i<ters.size();i++)
 								ss.insert(ters[i]);
 							dijkstra(s,d,p+off,rneie[k],rnein[k],rneieid[k],esigns[k],nodenum,pnodesize,WD,ss,ters.size());
+							
+							*/
 							for(int i=0;i<ters.size();i++)
 							{
 								//cout<<"fuckinggggggggggggggggggggggggggggggggggggggggggggggggggg "<<i<<endl;

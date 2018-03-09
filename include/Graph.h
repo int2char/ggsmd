@@ -205,10 +205,9 @@ class Graph
 		}
         vector<vector<demand>>greedy(vector<vector<demand>>&ds,vector<demand>&addin,vector<demand>&block,double &timecount)
 		{
-            algbase&router=router2;
         	float starty=float(1000*clock())/ CLOCKS_PER_SEC;
         	vector<vector<Sot>>stpair=Getspair(ds);
-        	//time_t startu=clock();
+        	//float startu=float(1000*clock())/ CLOCKS_PER_SEC;
         	//cout<<"get pair: "<<startu-starty<<endl;
         	if(PARAL>0)
 			{router2.updatS(stpair);
@@ -218,15 +217,15 @@ class Graph
         		router1.updatS(stpair);
         		router1.updatE(esignes);
         	}
-			//time_t endu=clock();
-			//cout<<"updating time: "<<endu-startu<<endl;
-			//time_t startro=clock();
+			
+			//float startro=float(1000*clock())/ CLOCKS_PER_SEC;
+			//cout<<"updating time: "<<startro-startu<<endl;
 			vector<vector<Rout>> result;
 			if(PARAL>0)
 				result=router2.routalg(0,0,0);
 			else
 				result=router1.routalg(0,0,0);
-			//time_t endro=clock();
+			//float endro=float(1000*clock())/ CLOCKS_PER_SEC;;
 			//cout<<"rout alg time: "<<endro-startro<<endl;
 			vector<vector<demand>>remain(PC,vector<demand>());
 			//time_t starta=clock();
@@ -254,8 +253,8 @@ class Graph
 											block.push_back(ds[k][i]);
 										}
 							}
-			//time_t mid=clock();
-			//cout<<"build queue: "<<mid-starta<<endl;
+			//float mid=float(1000*clock())/ CLOCKS_PER_SEC;
+			//cout<<"build queue: "<<mid-endro<<endl;
 			int count=0;
 			int sss=0;
 			for(int k=0;k<PC;k++)
@@ -303,8 +302,8 @@ class Graph
 								if(ff<0)continue;
 								for(int i=0;i<rout.size();i++)
 										{
-												int eid=rout[i];
-												esignes[ly][eid]*=-1;
+										  int eid=rout[i];
+										  esignes[ly][eid]*=-1;
 										}
 								flag=rout.size();
 								nde.rout=rout;
@@ -322,7 +321,8 @@ class Graph
 				}
 			}
 		float enda=float(1000*clock())/ CLOCKS_PER_SEC;
-		//cout<<"time is: "<<enda-starty<<endl;
+		//cout<<"rearange :"<<enda-mid<<endl;
+		//cout<<"alg time : "<<enda-starty<<endl;
 		timecount+=(enda-starty);
 		return remain;
 		}
@@ -347,8 +347,9 @@ class Graph
 			if(METHOD==0)
 			{
 				while(ds[0].size()>0||ds[1].size()>0)
-							ds=greedy(ds,addin,block,timecount);
+					ds=greedy(ds,addin,block,timecount);
 			}
+			//cout<<"tt time is :"<<timecount<<endl;
 			//cout<<"out method"<<endl;
 			times.push_back(timecount);
 			int count=0;
@@ -576,8 +577,16 @@ class Graph
             int count=0;
             //cout<<"init ing"<<endl;
             edges=redges;
-            router2.init(make_pair(redges,esigns),stpair,n*W);
-            router1.init(make_pair(redges,esigns),stpair,n*W);
+	    if(IFHOP>0)
+            {
+	   	router2.init(make_pair(redges,esigns),stpair,n*W);
+            	router1.init(make_pair(redges,esigns),stpair,n*W);
+	    }
+	    else
+		{
+		router2.init(make_pair(redges,esigns),stpair,n);
+                router1.init(make_pair(redges,esigns),stpair,n);
+		}
            // cout<<"init end"<<endl;
             return make_pair(redges,esigns);
         };
